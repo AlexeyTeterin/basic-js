@@ -5,6 +5,7 @@ module.exports = function transform(arr) {
 
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] === '--discard-next') {
+            result.push('--d');
             i++;
         } else if (arr[i] === '--discard-prev') {
             result.pop();
@@ -14,11 +15,11 @@ module.exports = function transform(arr) {
             }
         } else if (arr[i] === '--double-prev') {
             if ((i - 1) >= 0) {
-                result.push(arr[i - 1]);
+                result.push(result[i - 1]);
             }
         } else {
             result.push(arr[i]);
         }
     }
-    return result;
+    return result.filter((el) => el !== '--d' && el !== undefined);
 }
